@@ -1,5 +1,7 @@
 import { useForm } from "react-hook-form";
 import { CreditCard, Building2, AlertCircle } from "lucide-react";
+import { ToastContainer, toast } from "react-toastify";
+import axios from "axios";
 
 interface FormData {
   name: string;
@@ -21,18 +23,62 @@ function App() {
     },
   });
 
+  const recieptGen = async (id: any) => {
+    const response = await axios.get(
+      `http://localhost:5000/api/receipt/${id}`,
+      {
+        responseType: "blob", // Ensure response is treated as a file
+      }
+    );
+    const blob = new Blob([response.data], { type: "application/pdf" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "Reciept.pdf";
+
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   const onSubmit = async (data: FormData) => {
     try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      console.log("Form submitted:", data);
+      // Call the backend API instead of simulating with a timeout
+      const response = await fetch("http://localhost:5000/api/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+      console.log("Form submitted:", result);
+
+      // You can store result.id if needed to later fetch the receipt
+      const notify = () => toast("Booking successful!");
+      notify();
+
+      recieptGen(result.id);
+
       reset();
-      alert("Booking successful!");
     } catch (error) {
       console.error("Error submitting form:", error);
       alert("An error occurred. Please try again.");
     }
   };
+
+  // const onSubmit = async (data: FormData) => {
+  //   try {
+  //     // Simulate API call
+  //     await new Promise((resolve) => setTimeout(resolve, 1500));
+  //     console.log("Form submitted:", data);
+  //     reset();
+  //     alert("Booking successful!");
+  //   } catch (error) {
+  //     console.error("Error submitting form:", error);
+  //     alert("An error occurred. Please try again.");
+  //   }
+  // };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 to-indigo-100 flex items-center justify-center p-4">
@@ -40,6 +86,7 @@ function App() {
         <h1 className="text-2xl font-bold text-gray-800 mb-6">Form Session</h1>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+          <ToastContainer />
           {/* Name Field */}
           <div>
             <label
