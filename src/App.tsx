@@ -25,7 +25,7 @@ function App() {
 
   const recieptGen = async (id: any) => {
     const response = await axios.get(
-      `http://localhost:5000/api/receipt/${id}`,
+      `http://form-session-back.vercel.app/${id}`,
       {
         responseType: "blob", // Ensure response is treated as a file
       }
@@ -43,13 +43,16 @@ function App() {
   const onSubmit = async (data: FormData) => {
     try {
       // Call the backend API instead of simulating with a timeout
-      const response = await fetch("http://localhost:5000/api/submit", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        "http://form-session-back.vercel.app/api/submit",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
 
       const result = await response.json();
       console.log("Form submitted:", result);
