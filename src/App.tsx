@@ -25,7 +25,7 @@ function App() {
 
   const recieptGen = async (id: any) => {
     const response = await axios.get(
-      `https://form-session-back.vercel.app/${id}`,
+      `https://form-session-back.vercel.app/api/receipt/${id}`,
       {
         responseType: "blob", // Ensure response is treated as a file
       }
