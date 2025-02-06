@@ -25,7 +25,7 @@ function App() {
 
   const recieptGen = async (id: any) => {
     const response = await axios.get(
-      `http://form-session-back.vercel.app/${id}`,
+      `https://form-session-back.vercel.app/${id}`,
       {
         responseType: "blob", // Ensure response is treated as a file
       }
@@ -44,7 +44,7 @@ function App() {
     try {
       // Call the backend API instead of simulating with a timeout
       const response = await fetch(
-        "http://form-session-back.vercel.app/api/submit",
+        "https://form-session-back.vercel.app/api/submit",
         {
           method: "POST",
           headers: {
