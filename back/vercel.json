@@ -1,1 +1,1 @@
-{ "rewrites": [{ "source": "/(.*)", "destination": "server.ts" }] }
+{ "rewrites": [{ "source": "/(.*)", "destination": "src/server.ts" }] }
