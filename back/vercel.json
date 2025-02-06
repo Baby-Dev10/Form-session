@@ -1,1 +1,1 @@
-{ "routes": [{ "source": "/(.*)", "destination": "src/server.ts" }] }
+{ "routes": [{ "src": "/(.*)", "dest": "src/server.ts" }] }
