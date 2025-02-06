@@ -20,10 +20,18 @@ connectDB();
 
 const app = express();
 
-app.use(cors(corsOptions));
+app.use(
+  cors({
+    origin: "https://form-session-iota.vercel.app", // Your React frontend URL
+    methods: "GET,POST", // Allowed methods
+    allowedHeaders: "Content-Type,Authorization", // Allowed headers
+    credentials: true, // If using cookies or authentication
+  })
+);
+app.use(cors());
 
 // Optionally handle preflight requests explicitly
-app.options("*", cors(corsOptions));
+app.options("*", cors());
 
 // Middleware
 app.use(express.json());
