@@ -1,12 +1,11 @@
-import React from 'react';
-import { useForm } from 'react-hook-form';
-import { CreditCard, Building2, AlertCircle } from 'lucide-react';
+import { useForm } from "react-hook-form";
+import { CreditCard, Building2, AlertCircle } from "lucide-react";
 
 interface FormData {
   name: string;
   age: number;
   sessions: number;
-  paymentMethod: 'card' | 'bank';
+  paymentMethod: "card" | "bank";
 }
 
 function App() {
@@ -18,7 +17,7 @@ function App() {
   } = useForm<FormData>({
     defaultValues: {
       sessions: 1,
-      paymentMethod: 'card',
+      paymentMethod: "card",
     },
   });
 
@@ -26,35 +25,41 @@ function App() {
     try {
       // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 1500));
-      console.log('Form submitted:', data);
+      console.log("Form submitted:", data);
       reset();
-      alert('Booking successful!');
+      alert("Booking successful!");
     } catch (error) {
-      console.error('Error submitting form:', error);
-      alert('An error occurred. Please try again.');
+      console.error("Error submitting form:", error);
+      alert("An error occurred. Please try again.");
     }
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 to-indigo-100 flex items-center justify-center p-4">
       <div className="bg-white rounded-xl shadow-lg p-8 w-full max-w-md">
-        <h1 className="text-2xl font-bold text-gray-800 mb-6">Session Booking</h1>
+        <h1 className="text-2xl font-bold text-gray-800 mb-6">Form Session</h1>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           {/* Name Field */}
           <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+            <label
+              htmlFor="name"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
               Full Name
             </label>
             <input
               type="text"
               id="name"
-              {...register('name', {
-                required: 'Name is required',
-                minLength: { value: 2, message: 'Name must be at least 2 characters' },
+              {...register("name", {
+                required: "Name is required",
+                minLength: {
+                  value: 2,
+                  message: "Name must be at least 2 characters",
+                },
               })}
               className={`w-full px-4 py-2 rounded-lg border ${
-                errors.name ? 'border-red-500' : 'border-gray-300'
+                errors.name ? "border-red-500" : "border-gray-300"
               } focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition`}
               placeholder="John Doe"
             />
@@ -68,19 +73,22 @@ function App() {
 
           {/* Age Field */}
           <div>
-            <label htmlFor="age" className="block text-sm font-medium text-gray-700 mb-1">
+            <label
+              htmlFor="age"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
               Age
             </label>
             <input
               type="number"
               id="age"
-              {...register('age', {
-                required: 'Age is required',
-                min: { value: 18, message: 'Must be at least 18 years old' },
-                max: { value: 120, message: 'Invalid age' },
+              {...register("age", {
+                required: "Age is required",
+                min: { value: 18, message: "Must be at least 18 years old" },
+                max: { value: 120, message: "Invalid age" },
               })}
               className={`w-full px-4 py-2 rounded-lg border ${
-                errors.age ? 'border-red-500' : 'border-gray-300'
+                errors.age ? "border-red-500" : "border-gray-300"
               } focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition`}
               placeholder="25"
             />
@@ -94,19 +102,22 @@ function App() {
 
           {/* Number of Sessions Field */}
           <div>
-            <label htmlFor="sessions" className="block text-sm font-medium text-gray-700 mb-1">
+            <label
+              htmlFor="sessions"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
               Number of Sessions
             </label>
             <input
               type="number"
               id="sessions"
-              {...register('sessions', {
-                required: 'Number of sessions is required',
-                min: { value: 1, message: 'Minimum 1 session required' },
-                max: { value: 10, message: 'Maximum 10 sessions allowed' },
+              {...register("sessions", {
+                required: "Number of sessions is required",
+                min: { value: 1, message: "Minimum 1 session required" },
+                max: { value: 10, message: "Maximum 10 sessions allowed" },
               })}
               className={`w-full px-4 py-2 rounded-lg border ${
-                errors.sessions ? 'border-red-500' : 'border-gray-300'
+                errors.sessions ? "border-red-500" : "border-gray-300"
               } focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition`}
               placeholder="1"
             />
@@ -128,27 +139,35 @@ function App() {
                 <input
                   type="radio"
                   value="card"
-                  {...register('paymentMethod')}
+                  {...register("paymentMethod")}
                   className="peer sr-only"
                 />
-                <div className="p-4 border rounded-lg cursor-pointer flex items-center gap-2
-                  peer-checked:border-purple-500 peer-checked:bg-purple-50 hover:bg-gray-50 transition">
+                <div
+                  className="p-4 border rounded-lg cursor-pointer flex items-center gap-2
+                  peer-checked:border-purple-500 peer-checked:bg-purple-50 hover:bg-gray-50 transition"
+                >
                   <CreditCard className="text-gray-600" size={20} />
-                  <span className="font-medium text-gray-700">Card Payment</span>
+                  <span className="font-medium text-gray-700">
+                    Card Payment
+                  </span>
                 </div>
               </label>
-              
+
               <label className="relative">
                 <input
                   type="radio"
                   value="bank"
-                  {...register('paymentMethod')}
+                  {...register("paymentMethod")}
                   className="peer sr-only"
                 />
-                <div className="p-4 border rounded-lg cursor-pointer flex items-center gap-2
-                  peer-checked:border-purple-500 peer-checked:bg-purple-50 hover:bg-gray-50 transition">
+                <div
+                  className="p-4 border rounded-lg cursor-pointer flex items-center gap-2
+                  peer-checked:border-purple-500 peer-checked:bg-purple-50 hover:bg-gray-50 transition"
+                >
                   <Building2 className="text-gray-600" size={20} />
-                  <span className="font-medium text-gray-700">Bank Transfer</span>
+                  <span className="font-medium text-gray-700">
+                    Bank Transfer
+                  </span>
                 </div>
               </label>
             </div>
@@ -158,9 +177,11 @@ function App() {
             type="submit"
             disabled={isSubmitting}
             className={`w-full py-3 px-4 rounded-lg text-white font-medium flex items-center justify-center gap-2 transition
-              ${isSubmitting 
-                ? 'bg-purple-400 cursor-not-allowed' 
-                : 'bg-purple-600 hover:bg-purple-700 active:bg-purple-800'}`}
+              ${
+                isSubmitting
+                  ? "bg-purple-400 cursor-not-allowed"
+                  : "bg-purple-600 hover:bg-purple-700 active:bg-purple-800"
+              }`}
           >
             {isSubmitting ? (
               <>
@@ -168,7 +189,7 @@ function App() {
                 Processing...
               </>
             ) : (
-              'Book Sessions'
+              "Book Sessions"
             )}
           </button>
         </form>
